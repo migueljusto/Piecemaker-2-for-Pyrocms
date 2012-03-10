@@ -1,0 +1,21 @@
+.one_half{width:49%!important;}
+.form_inputs > div > section {width:94%!important; }
+.form_inputs > div > section > ul > li {
+	float: left;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.form_inputs > div > section > ul > li:last-child {
+	border-bottom: none!important;
+}
+.form_inputs > div > section > ul > li label {
+	width: 58%!important;
+	float: left;
+	text-align: left;
+	margin: 0 3% 0 0;
+	padding: 8px;
+}
+
+.clear{clear:both; padding-top:15px;}
