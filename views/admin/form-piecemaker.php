@@ -5,7 +5,7 @@
 	<?php if ($this->method == 'create'): ?>
 		<h4><?php echo lang('piecemaker.create_piecemaker_title'); ?></h4>
 	<?php else: ?>
-		<h4><?php echo lang('piecemaker.edit_piecemaker_title').' -> '. $settings->title?></h4>
+		<h4><?php echo lang('piecemaker.edit_piecemaker_title').' &rarr; '. $settings->title?></h4>
 	<?php endif; ?>
 </section>
 
@@ -39,9 +39,23 @@
                     </label>
 					<input type="text" id="title" name="title"  value="<?php echo $settings->title; ?>" />
 				</li>
+                <li class="<?php echo alternator('', 'even'); ?>">
+					<label for="title"><?php echo lang('piecemaker.slug_label'); ?> 
+                    	<small> <?php if ($this->method == 'settings'): echo lang('piecemaker.slug_disable_desc'); else:  echo lang('piecemaker.slug_desc');  endif; ?> </small>
+                    </label>
+                    <?php if ($this->method == 'settings'): ?>
+                   
+                   <input type="hidden" name="slug"  value="<?php echo $settings->slug; ?>" /> 
+                   <input type="text"  name"_slug_show" value="<?php echo $settings->slug; ?>" disabled="disabled" />
+                   <?php else: ?>
+                   
+                   <input type="text" id="slug" name="slug"  value="<?php echo $settings->slug; ?>" />
+                   <?php endif; ?>
+					
+				</li>
                  <li class="<?php echo alternator('', 'even'); ?>">
-					<label for="description"><?php echo lang('piecemaker.description_label'); ?>
-                     <small> <?php echo lang('piecemaker.description_desc'); ?></small></label>
+					<label for="description"><?php echo lang('piecemaker.description_piece_label'); ?>
+                     <small> <?php echo lang('piecemaker.description_piece_desc'); ?></small></label>
 					<input type="text" id="description" name="description"  value="<?php echo $settings->description; ?>" />
 				</li>
                 <li class="<?php echo alternator('', 'even'); ?>">
@@ -480,6 +494,7 @@
              
 <div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
+        <button type="submit" name="btnAction" value="save_exit" class="btn blue"><span><?php echo lang('buttons.save_exit'); ?></span></button>	
 		<a href="<?php echo site_url('admin/piecemaker'); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
 	</div>
 

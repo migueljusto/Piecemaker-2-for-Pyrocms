@@ -8,15 +8,15 @@ class Module_Piecemaker extends Module {
 	{
 	$info = array(
 			'name' => array(
-				'en' => 'Piecemaker Manager',
-				'br' => 'Piecemaker gestor',
-				'pt' => 'Piecemaker gestor',	
+				'en' => 'Piecemaker',
+				'br' => 'Piecemaker',
+				'pt' => 'Piecemaker',	
 			),
 			'description' => array(
 				
-				'en' => 'The Image Slider is a module to manage images on Home Page',
-				'br' => 'The Image Slider is a module to manage images on Home Page',
-				'pt' => 'O módulo Slider images permite-lhe gerir as imagens do slider de apresentação',		    
+				'en' => 'The Piecemaker Manager lets users to manage the content and settings from all piecemakers easely ',
+				'br' => 'O Gestor de Piecemakers permite-lhe gerir os ficheiros das suas apresentações facilmente',
+				'pt' => 'O Gestor de Piecemakers permite-lhe gerir os ficheiros das suas apresentações facilmente',		    
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -36,7 +36,7 @@ class Module_Piecemaker extends Module {
 				   							  				 'uri' => 'piecemaker/admin_files/files/'.$this->uri->segment(4),
 				   						 			   'shortcuts' => array(
 																			array(
-																				 'name' => 'piecemaker.add_file_label',
+																				 'name' => 'piecemaker.new_file_label',
 							         											  'uri' => 'piecemaker/admin_files/add_file/'.$this->uri->segment(4),
 																				'class' => 'add'
 																				 )
@@ -86,6 +86,7 @@ class Module_Piecemaker extends Module {
 		
 		$piecemaker = "CREATE TABLE `".$this->db->dbprefix('piecemaker')."` (
 			  		 `id` int(11) NOT NULL AUTO_INCREMENT,
+					 `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
  					 `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
  					 `description` text COLLATE utf8_unicode_ci,
 					 `files` text COLLATE utf8_unicode_ci,
@@ -121,16 +122,18 @@ class Module_Piecemaker extends Module {
 
 	public function help()
 	{
-		// Return a string containing help info
-		// You could include a file and return it here.
-		return "<h4>Overview</h4>
-		<p>Slider Image</p>
-		<h4>Add image</h4>
-		<p>To add any image please go on menu CONTENT->FILES and upload your image.<br>
-		Now you can select and add your image on Add image.<br><br>
+		/**
+		 * Either return a string containing help info
+		 * return "Some help info";
+		 *
+		 * Or add a language/help_lang.php file and
+		 * return TRUE;
+		 *
+		 * help_lang.php contents
+		 * $lang['help_body'] = "Some help info";
+		*/
+		return TRUE;
 		
-		Very easy :)<br><br>
-		Created by  <a target='_new' href='http://migueljusto.net/'>Mj Web Designer</p>";
 	}
 }
 /* End of file details.php */

@@ -3,7 +3,7 @@
 <?php if ($this->method === 'add_file'): ?>
 <h4><?php echo lang('piecemaker.new_file_label'); ?></h4>
 <?php else: ?>
-<h4><?php echo lang('piecemaker.edit_file_label').' -> '. $file['title'].' -> '.$piecemaker->title; ?></h4>
+<h4><?php echo lang('piecemaker.edit_file_label').' &rarr; '. $file['title'].' &rarr; '.$piecemaker->title; ?></h4>
 <?php endif; ?>
 
 </section>
@@ -37,7 +37,6 @@ endif;
                 <li class="<?php echo alternator('', 'even'); ?>">
 					<label for="title"><?php echo lang('piecemaker.title_label'); ?></label>
 					<input type="text" id="title" name="title"  value="<?php echo $file['title']; ?>" />
-					<span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
 				</li>
                 
                 
@@ -71,7 +70,7 @@ endif;
 			 	   endif; ?>
                 
 				<?php echo form_upload('file'); ?><?php echo $settings['image_width'] ?>px<?php echo $settings['image_height'] ?>px
-                <span class="required-icon tooltip"><?php echo lang('required_label'); ?></span>
+               
 			     </li>
                  
                  

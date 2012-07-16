@@ -2,11 +2,10 @@
 /**
  * Piecemaker front view XML
  *
- * Create a list of images
+ * Create a list of images transitions and settings
  *
  * @package		PyroCMS
  * @author		Miguel Justo - migueljusto.net
- * @copyright	Copyright (c) 2012, Mj web designer
  *
  */
 class Piecemaker extends Public_Controller
@@ -17,11 +16,6 @@ function get_images($id_piecemaker)
 $this->config->load('config');	
 
 $this->load->model('piecemaker_m');
-
-$this->load->model('files_m');
-
-
-	
 
 $upload_path= base_url().$this->config->item('files_folder');
 	
@@ -34,14 +28,7 @@ $upload_path= base_url().$this->config->item('files_folder');
 	
 	$transitions = $return->transitions;
 		
- /*
- $settings = $this->piecemaker_m->get_settings($id_piecemaker); 
  
-  
- $files = $this->files_m->get_files($id_piecemaker);   */
-
-
-	
 echo '<?xml version="1.0" encoding="utf-8"?>
 		<Piecemaker>';
 	

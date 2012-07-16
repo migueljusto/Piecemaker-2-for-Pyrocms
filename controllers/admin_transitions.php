@@ -1,13 +1,12 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
- * The Piecemaker module enables users to create piecemaker gallerys, and manage their existing settings.
+ * The Piecemaker Manager module enables users to create piecemakers, upload files and manage their existing files, transitions and settings.
  *
- * @author 		Miguel Justo - Mj web designer
+ * @author 		Miguel Justo - Mj Web Designs - http://migueljusto.net
  * @package 	PyroCMS
- * @subpackage 	Piecemaker Module
+ * @subpackage 	Piecemaker 2 Manager Module
  * @category 	Modules
- * @license 	Apache License v2.0
  */
 class Admin_transitions extends Admin_Controller
 {
@@ -22,7 +21,7 @@ class Admin_transitions extends Admin_Controller
 		array('field' => 'pieces','label'    => 'lang:piecemaker.pieces_label','rules' => 'trim|required'),
 		array('field' => 'time_cube','label' => 'lang:piecemaker.time_label','rules' => 'trim|required'),
 		array('field' => 'transition','label'=> 'lang:piecemaker.transition_label','rules' => 'trim|required'),
-		array('field' => 'delay','label'     => 'lang:piecemaker.delay_label','rules' => 'trim|required'),
+		array('field' => 'delay','label'     => 'lang:piecemaker.delay_file_label','rules' => 'trim|required'),
 		array('field' => 'depth_offset','label'  => 'lang:piecemaker.depth_offset_label','rules' => 'trim|required'),
 		array('field' => 'cube_distance','label' => 'lang:piecemaker.cube_distance_label','rules' => 'trim|required'),
 		
@@ -110,7 +109,8 @@ class Admin_transitions extends Admin_Controller
 		// Load the view
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('admin/transitions.js', 'piecemaker'))
+			->append_css('module::admin-piecemaker.css')
+			->append_js('module::admin/transitions.js')
 			->build('admin/transitions/transitions',$this->data);
 	}
 	
@@ -144,7 +144,7 @@ public function add_transition($id_piecemaker)
 			if ($id = $this->piecemaker_m->insert_transition($this->input->post()))
 			{
 				// Everything went ok..
-				$this->session->set_flashdata('success', lang('piecemaker.insert_transition_success'));
+				$this->session->set_flashdata('success', lang('piecemaker.add_transition_success'));
 
 				// Redirect back to the form or main page
 				$this->input->post('btnAction') == 'save_exit'
@@ -155,7 +155,7 @@ public function add_transition($id_piecemaker)
 			// Something went wrong..
 			else
 			{
-				$this->session->set_flashdata('error', lang('piecemaker.insert_transition_error'));
+				$this->session->set_flashdata('error', lang('piecemaker.add_transition_error'));
 				redirect('piecemaker/admin_transitions/add_transition/'.$this->input->post('id_piecemaker'));
 			}
 		}else{

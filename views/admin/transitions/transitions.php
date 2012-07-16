@@ -1,5 +1,5 @@
 <section class="title">
-	<h4>Transitions  ->  <?php echo $piecemaker->title; ?></h4>
+	<h4><?php echo lang('piecemaker.transitions_title'); ?> &rarr; <?php echo $piecemaker->title; ?></h4>
 </section>
 
 <section class="item">
@@ -9,7 +9,7 @@
 <?php if ( !empty($transitions)){ ?>
 <?php echo form_open('piecemaker/admin_transitions/action' , 'class="crud"');?>
 <?php echo form_hidden('id_piecemaker', $piecemaker->id);  ?>
-<table border="0" class="table-list">
+<table border="0" class="table-list" id="transitions">
 		<thead>
 			<tr>
 				<td width="10" align="center"></td>
@@ -30,7 +30,7 @@
 			<tr>
 				<td width="10"><?php echo form_checkbox('action_to[]', $count); ?></td>
                 <td width="30" class="handle">
-				<?php echo image('icons/drag_handle.gif'); ?>
+				 <span class="move-handle"></span>
                 <input type="hidden" name="id_trans" value="<?php echo $count; ?>" />
                 </td>
               
@@ -62,10 +62,10 @@
 
 <?php }else{ ?>
 	<div class="no_data">
-		<?php echo image('album.png', 'piecemaker', array('alt' => 'No Images')); ?>
+		<?php  // echo image('album.png', 'piecemaker', array('alt' => 'No Images')); ?>
+		<?php echo lang('piecemaker.no_transitions_label'); ?><br/><br/>
+        <?php echo anchor('piecemaker/admin_transitions/add_transition/'.$piecemaker->id, lang('piecemaker.add_transition_label'), 'class="btn blue"'); ?>
 		
-        <?php echo anchor('piecemaker/admin_transitions/add_transition/'.$piecemaker->id, 'Add Transition', 'class="btn blue"'); ?>
-		<h2><?php echo lang('piecemaker.no_transitions_label'); ?></h2>
 	</div>
 <?php }?>
 

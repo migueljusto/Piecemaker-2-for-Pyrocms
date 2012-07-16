@@ -2,117 +2,118 @@
 /**
  * @author 		Miguel Justo - Mj Web Designs - http://migueljusto.net
  * @package 	PyroCMS
- * @subpackage 	Piecemaker 2 language EN - English
+ * @subpackage 	Piecemaker 2 language PT - Portuguese Portugal
  * @category 	Language Module
  * @license 	Apache License v2.0
  */
  
- $lang['piecemaker.index_title'] 	        = 'Piecemakers created';
+ $lang['piecemaker.index_title'] 	        = 'Piecemakers criados';
 
 // No data Labels
-$lang['piecemaker.no_piecemakers_label'] 	= 'No piecemakeres created';
-$lang['piecemaker.no_files_label'] 	        = 'No files added';
-$lang['piecemaker.no_transitions_label'] 	= 'No transitions added';
+$lang['piecemaker.no_piecemakers_label'] 	= 'Ainda não criou nenhum piecemaker';
+$lang['piecemaker.no_files_label'] 	        = 'Ainda não adicionou ficheiros ao piecemaker';
+$lang['piecemaker.no_transitions_label'] 	= 'Nenhuma transição adicionada';
 
 
 // Success notifications
-$lang['piecemaker.create_success'] 	        = 'The piecemaker has been created successfully.';
-$lang['piecemaker.update_success']          = 'The piecemaker settings have been successfully updated.';
-$lang['piecemaker.delete_success']          = 'The piecemaker has been deleted successfully.';
-$lang['piecemaker.delete_multi_success']    = 'All piecemakers have been deleted successfully.';
+$lang['piecemaker.create_success'] 	        = 'O piecemaker foi criado com sucesso.';
+$lang['piecemaker.update_success']          = 'As configurações do piecemaker foram salvas com sucesso';
+$lang['piecemaker.delete_success']          = 'O piecemaker foi removido com sucesso.';
+$lang['piecemaker.delete_multi_success']    = 'Todos os piecemakers foram removidos com sucesso.';
 
-$lang['piecemaker.add_file_success']          = 'The new file has been successfully uploaded and inserted.';
-$lang['piecemaker.update_file_success']       = 'The file has been successfully updated.';
-$lang['piecemaker.delete_file_success']       = 'The file has been deleted successfully';
-$lang['piecemaker.delete_multi_file_success'] = 'All files have been deleted successfully';
+$lang['piecemaker.add_file_success']          = 'O novo ficheiro foi inserido com sucesso.';
+$lang['piecemaker.update_file_success']       = 'O ficheiro foi atualizado com sucesso.';
+$lang['piecemaker.delete_file_success']       = 'O ficheiro foi removido.';
+$lang['piecemaker.delete_multi_file_success'] = 'Todos os ficheiros foram apagados.';
 
-$lang['piecemaker.add_transition_success']          = 'The new transition has been successfully inserted.';
-$lang['piecemaker.update_transition_success']       = 'The transition has been successfully updated.';
-$lang['piecemaker.delete_transition_success']       = 'The transition has been deleted successfully';
-$lang['piecemaker.delete_multi_transition_success'] = 'All transitions have been deleted successfully';
+$lang['piecemaker.add_transition_success']          = 'A nova transição foi inserida com sucesso.';
+$lang['piecemaker.update_transition_success']       = 'A transição foi atualizada com sucesso.';
+$lang['piecemaker.delete_transition_success']       = 'A transição foi removida.';
+$lang['piecemaker.delete_multi_transition_success'] = 'Todas as transições foram removidas.';
 
 
 // Error notifications
-$lang['piecemaker.create_error']			= 'The piecemaker could not be created.';
-$lang['piecemaker.update_error']			= 'The piecemaker could not be updated.';
-$lang['piecemaker.delete_error']			= 'The specified piecemaker does not exist.';
+$lang['piecemaker.create_error']			= 'O piecemaker não pode ser criado.';
+$lang['piecemaker.update_error']			= 'O piecemaker não pôde ser atualizado.';
+$lang['piecemaker.delete_error']			= 'O piecemaker especeficado não existe.';
 
-$lang['piecemaker.add_file_error']          = 'The new file could not be uploaded. :(';
-$lang['piecemaker.update_file_error']		= 'The file could not be updated.';
-$lang['piecemaker.delete_file_error']		= 'The specified file does not exist.';
+$lang['piecemaker.add_file_error']          = 'O novo ficheiro não pode ser inserido. :(';
+$lang['piecemaker.update_file_error']		= 'O ficheiro não pode ser atualizado.';
+$lang['piecemaker.delete_file_error']		= 'O ficheiro especeficado não existe.';
 
-$lang['piecemaker.add_transition_error']    = 'The new transition could not be inserted. :(';
-$lang['piecemaker.update_transition_error'] = 'The transition could not be updated.';
-$lang['piecemaker.delete_transition_error']	= 'The specified transition does not exist.';
+$lang['piecemaker.add_transition_error']    = 'A nova transição não pode ser inserida :(';
+$lang['piecemaker.update_transition_error'] = 'A transição não pode ser atualizada';
+$lang['piecemaker.delete_transition_error']	= 'A transição especificada não pode ser removida.';
 
 
-$lang['piecemaker.delete_piece_error']		= 'The piecemaker "%s" could not be deleted.';
+$lang['piecemaker.delete_piece_error']		= 'O piecemaker "%s" não pode ser removido.';
 $lang['piecemaker.upload_error']        	= 'upload error';
-$lang['piecemaker.invalid_extension']  		= 'Please upload a file with an valid extension.';
+$lang['piecemaker.invalid_extension']  		= 'Por favor envie um ficheiro com uma extenção válida.';
 
 
 // Sections
-$lang['piecemaker.files_label']		        = 'Files';
-$lang['piecemaker.transitions_label']		= 'Transitions';
-$lang['piecemaker.settings_label']		    = 'Settings';
+$lang['piecemaker.files_label']		        = 'Ficheiros';
+$lang['piecemaker.transitions_label']		= 'Transições';
+$lang['piecemaker.settings_label']		    = 'Configurações';
 
 // Titles labels
-$lang['piecemaker.files_title']	            = 'Manage Files';
-$lang['piecemaker.transitions_title']	    = 'Manage Transitions';
-$lang['piecemaker.edit_piecemaker_title']	= 'Edit Settings';
-$lang['piecemaker.create_piecemaker_title']	= 'New Piecemaker';
+$lang['piecemaker.files_title']	            = 'Gerir Ficheiros';
+$lang['piecemaker.transitions_title']	    = 'Gerir Transições';
+$lang['piecemaker.edit_piecemaker_title']	= 'Editar Configurações';
+$lang['piecemaker.create_piecemaker_title']	= 'Criar um novo Piecemaker';
 
 
 // General labels
 $lang['piecemaker.id_label']		        = 'Id';
 $lang['piecemaker.slug_label']		        = 'Slug';
-$lang['piecemaker.title_label']				= 'Title';
-$lang['piecemaker.description_label']		= 'Description';
-$lang['piecemaker.number_files_label']		= 'Files';
+$lang['piecemaker.title_label']				= 'Titulo';
+$lang['piecemaker.description_label']		= 'Descrição';
+$lang['piecemaker.number_files_label']		= 'Ficheiros';
 $lang['piecemaker.number_transitions_label']= 'Trans.';
-$lang['piecemaker.created_on_label']		= 'Created on';
-$lang['piecemaker.image_label']		        = 'Image/File';
-$lang['piecemaker.width_label']				= 'Width';
-$lang['piecemaker.heigth_label']			= 'Heigth';
-$lang['piecemaker.type_file_label']		    = 'Type';
+$lang['piecemaker.created_on_label']		= 'Criado a';
+$lang['piecemaker.image_label']		        = 'Imagem/Ficheiro';
+$lang['piecemaker.width_label']				= 'Largura';
+$lang['piecemaker.heigth_label']			= 'Altura';
+$lang['piecemaker.type_file_label']		    = 'Tipo';
 
 
 // Buttons
-$lang['piecemaker.add_piecemaker_label']    = 'Create Piecemaker';
-$lang['piecemaker.manage_label']		    = 'Manage';
-$lang['piecemaker.add_file_label']		    = 'Add File +';
-$lang['piecemaker.add_transition_label']    = 'Add Transition';
+$lang['piecemaker.add_piecemaker_label']    = 'Criar Piecemaker';
+$lang['piecemaker.manage_label']		    = 'Gerir';
+$lang['piecemaker.add_file_label']		    = 'Adicionar Ficheiro +';
+$lang['piecemaker.add_transition_label']    = 'Adicionar Transição';
 
 
 // Sidebar labels
-$lang['piecemaker.list_piecemakers_label']	= 'List all Piecemakers';
-$lang['piecemaker.new_piecemaker_label']	= 'Create new Piecemaker';
-$lang['piecemaker.list_piecemaker_label']	= 'List Piecemaker content';
-$lang['piecemaker.new_file_label']		    = 'Add new file';
-$lang['piecemaker.edit_file_label']		    = 'Edit file';
+$lang['piecemaker.list_piecemakers_label']	= 'Listar todos Piecemakers';
+$lang['piecemaker.new_piecemaker_label']	= 'Criar um novo Piecemaker';
+$lang['piecemaker.list_piecemaker_label']	= 'Listar Conteudo Piecemaker';
+$lang['piecemaker.new_file_label']		    = 'Adicionar novo ficheiro';
+$lang['piecemaker.edit_file_label']		    = 'Editar ficheiro';
 
 
 // settings files
-$lang['piecemaker.image_label']				= 'Image';
+$lang['piecemaker.image_label']				= 'Imagem';
 $lang['piecemaker.swf_label']				= 'Flash';
 $lang['piecemaker.video_label']		        = 'Video';
-$lang['piecemaker.video_autoplay_label']    = 'Autoplay Video';
-$lang['piecemaker.file_label']		        = 'File';
-$lang['piecemaker.background_label']	    = 'Background image';
-$lang['piecemaker.yes_label']	            = 'Yes';
-$lang['piecemaker.no_label']	            = 'No';
+$lang['piecemaker.video_autoplay_label']    = 'Auto-play Video';
+$lang['piecemaker.file_label']		        = 'Ficheiro';
+$lang['piecemaker.background_label']	    = 'Imagem de Fundo';
+
+$lang['piecemaker.yes_label']	            = 'Sim';
+$lang['piecemaker.no_label']	            = 'Não';
 
 
 // Transitions Labels
-$lang['piecemaker.pieces_label']		    = 'Pieces';
-$lang['piecemaker.time_label']		        = 'Time';
-$lang['piecemaker.transition_label']	    = 'Transition';
-$lang['piecemaker.delay_file_label']	    = 'Delay';
-$lang['piecemaker.depth_offset_label']	    = 'Depth Offset';
-$lang['piecemaker.cube_distance_label']	    = 'Cube Distance';
+$lang['piecemaker.pieces_label']		    = 'Peças';
+$lang['piecemaker.time_label']		        = 'Tempo';
+$lang['piecemaker.transition_label']	    = 'Transição';
+$lang['piecemaker.delay_file_label']	    = 'Atraso';
+$lang['piecemaker.depth_offset_label']	    = 'Depth Offset';#cdcs
+$lang['piecemaker.cube_distance_label']	    = 'Distancia Cubo';
 
-$lang['piecemaker.pieces_desc']		        = 'Number of pieces to which the image is sliced';
-$lang['piecemaker.time_desc']		        = 'Time for one cube to turn';
+$lang['piecemaker.pieces_desc']		        = 'Numero de peças para a qual imagem é cortada';
+$lang['piecemaker.time_desc']		        = 'Timpo de transição para cada cubo';
 $lang['piecemaker.transition_desc']	        = 'Transition type of the Tweener class.';
 $lang['piecemaker.delay_file_desc']	        = 'Delay between the start of one cube to the start of the next cube';
 $lang['piecemaker.depth_offset_desc']	    = 'The offset during transition on the z-axis. Value between 100 and 1000 are recommended.';
@@ -121,20 +122,20 @@ $lang['piecemaker.cube_distance_desc']	    = 'The distance between the cubes dur
 
 
 // Labels Settings
-$lang['piecemaker.center_label']	    = 'Center';
-$lang['piecemaker.left_label']	        = 'Left';
-$lang['piecemaker.right_label']	        = 'Right';
+$lang['piecemaker.center_label']	    = 'Centro';
+$lang['piecemaker.left_label']	        = 'Esquerda';
+$lang['piecemaker.right_label']	        = 'Direita';
 
 
-$lang['piecemaker.general_title_label']	    = 'General';
-$lang['piecemaker.shadow_title_label']	    = 'Shadow';
+$lang['piecemaker.general_title_label']	    = 'Geral';
+$lang['piecemaker.shadow_title_label']	    = 'Sombras';
 $lang['piecemaker.controls_title_label']	= 'Controls rollover';
-$lang['piecemaker.menu_title_label']	    = 'Menu Itens';
+$lang['piecemaker.menu_title_label']	    = 'Items Menu';
 $lang['piecemaker.tooltip_title_label']	    = 'Tooltip Itens';
 $lang['piecemaker.info_title_label']	    = 'HTML Text info';
 $lang['piecemaker.others_title_label']	    = 'Other settings';
 
-$lang['piecemaker.title_desc']		        = 'Title Piecemaker';
+$lang['piecemaker.title_desc']		        = 'Titulo Piecemaker';
 
 $lang['piecemaker.slug_desc']	            = 'Name to get the piecemaker';
 $lang['piecemaker.slug_disable_desc']	    = "Can't change the slug name after create";

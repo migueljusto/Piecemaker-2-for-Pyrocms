@@ -1,3 +1,5 @@
+span.move-handle { float: left; width: 24px; height: 18px; cursor: move; background: url(../img/drag_handle.gif) no-repeat; }
+
 .one_half{width:49%!important;}
 .form_inputs > div > section {width:94%!important; }
 .form_inputs > div > section > ul > li {

@@ -3,7 +3,7 @@
 <?php if ($this->method === 'add_transition'): ?>
 <h4><?php echo lang('piecemaker.add_transition_label'); ?></h4>
 <?php else: ?>
-<h4><?php echo lang('piecemaker.edit_transition_label').' -> '.  $piecemaker->title; ?></h4>
+<h4><?php echo lang('piecemaker.edit_transition_label').' &rarr; '.  $piecemaker->title; ?></h4>
 <?php endif; ?>
 
 </section>

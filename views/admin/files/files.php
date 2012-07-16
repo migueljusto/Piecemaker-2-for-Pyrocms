@@ -1,7 +1,7 @@
 <?php $this->load->helper('text'); ?>
 
 <section class="title">
-	<h4>Files  ->  <?php echo $piecemaker->title; ?></h4>
+	<h4><?php echo lang('piecemaker.files_title'); ?> &rarr; <?php echo $piecemaker->title; ?></h4>
 </section>
 
 <section class="item">
@@ -12,7 +12,7 @@
 <?php echo form_open('piecemaker/admin_files/files_action' , 'class="crud"');?>
 
  <input type="hidden" name="id_piecemaker" value="<?php echo $piecemaker->id;?>" />
-<table border="0" class="table-list">
+<table border="0" class="table-list" id="files">
 		<thead>
 			<tr>
 				<td width="10" align="center"></td>
@@ -33,7 +33,7 @@
 				<td width="10"><?php echo form_checkbox('action_to[]', $count); ?></td>
                  <input type="hidden" name="id_file" value="<?php echo $count;?>" />
                 <td width="30" class="handle">
-				<?php echo image('icons/drag_handle.gif'); ?>
+				 <span class="move-handle"></span>
                
                 </td>
                 <td ><?php if ($row['file_type'] == 'img' ){ ?>
@@ -92,10 +92,10 @@
 
 <?php }else{ ?>
 	<div class="no_data">
-		<?php echo image('album.png', 'piecemaker', array('alt' => 'No Images')); ?>
-		
+		<?php // echo image('album.png', 'piecemaker', array('alt' => 'No Images')); ?>
+		<?php echo lang('piecemaker.no_files_label'); ?><br/><br/>
         <?php echo anchor('piecemaker/admin_files/add_file/'.$piecemaker->id, lang('piecemaker.add_file_label'), 'class="btn blue"'); ?>
-		<h2><?php echo lang('piecemaker.no_files_label'); ?></h2>
+		
 	</div>
 <?php }?>
 

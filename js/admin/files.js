@@ -15,7 +15,7 @@
 				});
 				order = order.join(',');
 				
-			   $.post(SITE_URL + 'piecemaker/ajax/ajax_update_files_order', {order:order ,id_piece:$('input[name="id_piecemaker"]').val() }, function(data) {					
+			   $.post(SITE_URL + 'piecemaker/ajax/ajax_update_files_order', {order: order ,id_piece: $('input[name="id_piecemaker"]').val() }, function(data) {					
 					$('tr').removeClass('alt');
 					$('tr:even').addClass('alt');
 				});
@@ -57,34 +57,5 @@ $('input[name="file_type"]').live('change', function(){
 	
 })(jQuery);
 
-jQuery(document).ready(function() {
-		
 
-$('.colorpickerField').ColorPicker({
-	onSubmit: function(hsb, hex, rgb, el) {
-		$(el).val(hex);
-		$(el).ColorPickerHide();
-	},
-	onBeforeShow: function () {
-		$(this).ColorPickerSetColor(this.value);
-	},
-	onShow: function (colpkr) {
-		$(colpkr).fadeIn(500);
-		return false;
-	},
-	onHide: function (colpkr) {
-		$(colpkr).fadeOut(500);
-		return false;
-	},
-	onChange: function (hsb, hex, rgb) {
-		$('#colorSelector div').css('backgroundColor', '#' + hex);
-	}
-})
-.bind('keyup', function(){
-	$(this).ColorPickerSetColor(this.value);
-});
-
-		
-	
-})(jQuery);	
 

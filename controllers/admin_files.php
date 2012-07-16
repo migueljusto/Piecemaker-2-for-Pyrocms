@@ -1,25 +1,21 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
  *
- * The galleries module enables users to create albums, upload photos and manage their existing albums.
+ * The Piecemaker Manager module enables users to create piecemakers, upload files and manage their existing files, transitions and settings.
  *
- * @author 		Yorick Peterse - PyroCMS Dev Team
+ * @author 		Miguel Justo - Mj Web Designs - http://migueljusto.net
  * @package 	PyroCMS
- * @subpackage 	Gallery Module
+ * @subpackage 	Piecemaker 2 Manager Module
  * @category 	Modules
- * @license 	Apache License v2.0
  */
 class Admin_files extends Admin_Controller
 {
 	public $id = 0;
 	
 	private $_path 		= '';
-	private $_type 		= NULL;
-	private $_ext 		= NULL;
-	private $_filename	= NULL;
 
 	/**
-	 * Validation rules for creating a new gallery
+	 * Validation rules for add a new file
 	 *
 	 * @var array
 	 * @access private
@@ -27,7 +23,7 @@ class Admin_files extends Admin_Controller
 	private $files_validation_rules = array(
 	    array(
 	 		'field' => 'file_type',
-			'label' => 'lang:piecemaker.type_label',
+			'label' => 'lang:piecemaker.type_file_label',
 			'rules' => 'trim|required'
 		),
 		array(
@@ -63,10 +59,6 @@ class Admin_files extends Admin_Controller
 
 	/**
 	 * Constructor method
-	 *
-	 * @author Yorick Peterse - PyroCMS Dev Team
-	 * @access public
-	 * @return void
 	 */
 	public function __construct()
 	{
@@ -77,14 +69,13 @@ class Admin_files extends Admin_Controller
 
 		$this->load->model('piecemaker_m');
 		
-		$this->load->model('files_m');
-		
 		$this->lang->load('piecemaker');
 		
 		$this->load->library('form_validation');
 		
 
-		$this->_path =  FCPATH .$this->config->item('files_folder');
+		$this->_path = $this->config->item('files_folder');
+	 
 		
 	}
 
@@ -109,7 +100,8 @@ class Admin_files extends Admin_Controller
 		// Load the view
 		$this->template
 			->title($this->module_details['name'])
-			->append_metadata(js('admin/piecemaker.js', 'piecemaker'))
+			->append_css('module::admin-piecemaker.css')
+		    ->append_js('module::admin/files.js')
 			->set('piecemaker',$piecemaker)
 			->set('files',$files)
 			->set('settings',$settings)
@@ -121,13 +113,11 @@ class Admin_files extends Admin_Controller
 	
 	
 	
-	// Add Files to Piecemakers
+	// Add Files to Piecemaker
 	
 	public function add_file($id_piecemaker)
 	{
-		
-		
-		
+	
 		$this->template->active_section = 'files';
 
 	
@@ -139,57 +129,18 @@ class Admin_files extends Admin_Controller
 			
 			
 		 $data = $this->input->post();
-		 
-			is_dir($this->_path) OR @mkdir($this->_path, 0777);
-			
-			$this->load->library('upload');
+	
 			 
-if ( ! empty($_FILES['file']['name'])){
+		if ( ! empty($_FILES['file']['name'])){
 					
-					
-					if ($this->input->post('file_type')=='img'){
-						
-						$allwed_types=$this->config->item('files_allowed_file_img');
-					}
-					if ($this->input->post('file_type')=='swf'){
-						
-						$allwed_types=$this->config->item('files_allowed_file_swf');
-						
-				     }
-					 if ($this->input->post('file_type')=='video'){
-							 
-						$allwed_types=$this->config->item('files_allowed_file_video');
-					}
-					
-					
-					// Setup upload config
-				$this->upload->initialize(array(
-					'upload_path'	=> $this->_path,
-					'allowed_types'	=> $allwed_types,
-					'file_name'		=>trim(url_title($_FILES['file']['name'], 'dash', TRUE), '-')
-				));
-				
-				
-				
-				if ( ! $this->upload->do_upload('file'))
+
+					if ( !  $this->piecemaker_m->upload_file('file',$this->input->post('file_type')))
 					{	
 						
-				$status		= 'error';
-				$message	= $this->upload->display_errors();
+						$status		= 'error';
+						$message	= $this->upload->display_errors();
 
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message
-					));
-				}
-
-				$this->data->messages[$status] = $message;
+						$this->session->set_flashdata($status, $message);
 					 
 						
 					}else{
@@ -199,78 +150,36 @@ if ( ! empty($_FILES['file']['name'])){
 						// pass the attachment info to the email event
 						$data['file']= $result_data['file_name'];
 						
-						// File Image
-						if ($this->input->post('file_type')=='img'){
-					
-					
-						// create thumbnail
-						if ( ! $this->piecemaker_m->create_thumb($this->_path.$data['file'])){
-							$this->session->set_flashdata('error', lang('piecemaker.create_thumb_file_error'));
-						}
 						
-				
-						}
-						// File Video OR SWF
-						else{
-				
-						
-						if ( ! empty($_FILES['file_background']['name'])){
-							
-							
+					}
+		}// End if Image exist	
 					
-							// Setup upload config
-							$this->upload->initialize(array(
-								'upload_path'	=> $this->_path,
-								'allowed_types'	=> $this->config->item('files_allowed_file_img'),
-								'file_name'		=>trim(url_title($_FILES['file_background']['name'], 'dash', TRUE), '-')
-		     				));
-				
-							if ( ! $this->upload->do_upload('file_background'))
+		
+		if ( ! empty($_FILES['file_background']['name'])){
+							
+		
+							if ( ! $this->piecemaker_m->upload_file('file_background','img'))
 							{
 								
 								$status		= 'error';
 								$message	= $this->upload->display_errors();
 
-								if ($this->input->is_ajax_request())
-								{
-									$data = array();
-									$data['messages'][$status] = $message;
-									$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-									return $this->template->build_json(array(
-											'status'	=> $status,
-											'message'	=> $message
-									));
-								}
-
-								$this->data->messages[$status] = $message;
-								
-								
-								
-								
-								
+								$this->session->set_flashdata($status, $message);
 					
 							}else{
 						
 								$result_data = $this->upload->data();
 						
-	
 								$data['file_background']= $result_data['file_name'];
-							
-						
-								// create thumbnail
-								if ( ! $this->piecemaker_m->create_thumb($this->_path.$data['file_background'])){
-									$this->session->set_flashdata('error', lang('piecemaker.create_thumb_back_error'));
-								}
 
 							}
 				
-				 		 }	
-					}
+		 }// End if Background image exist	
+					
 				
 				
 				
-				if ($this->files_m->insert_file($data))
+				if ($this->piecemaker_m->insert_file($data))
 					{
 						// Everything went ok..
 						$this->session->set_flashdata('success', lang('piecemaker.add_file_success'));
@@ -287,13 +196,7 @@ if ( ! empty($_FILES['file']['name'])){
 						$this->session->set_flashdata('error', lang('piecemaker.add_file_error'));
 						redirect('piecemaker/admin_files/add_file/'.$this->input->post('id_piecemaker'));
 					}
-				
-				
-						
-				}// end if upload ok
-			} // end if file existe
-				
-				
+	
 		
 	
 		}
@@ -313,8 +216,8 @@ if ( ! empty($_FILES['file']['name'])){
 		$this->template
 			->title($this->module_details['name'], lang('piecemaker.new_file_label'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata(js('admin/piecemaker.js', 'piecemaker'))
-			->append_metadata(css('admin-piecemaker.css', 'piecemaker'))
+			->append_js('module::admin/files.js', 'piecemaker')
+			->append_css('module::admin-piecemaker.css', 'piecemaker')
 			->set('file',$file)
 			->set('id_piecemaker',$id_piecemaker)
 			->set('settings',$settings)
@@ -331,189 +234,96 @@ if ( ! empty($_FILES['file']['name'])){
 	public function edit_file($id_piecemaker,$id_file)
 	{
 		
-		 
-		
-	
-	
 		// Set the validation rules
 		$this->form_validation->set_rules($this->files_validation_rules);
 		
 		if ($this->form_validation->run() )
 		{
-			
-			
+	
 		    $data = $this->input->post();
-		 
-			is_dir($this->_path) OR @mkdir($this->_path, 0777);
-			
-			$this->load->library('upload');
-			 
+	
 			//get old data
 			$return = $this->piecemaker_m->get_piecemaker($id_piecemaker);
 		
 	   		$files = $return->files;
 				 
-if ( ! empty($_FILES['file']['name'])){
+			if ( ! empty($_FILES['file']['name'])){
 	
-					
-					//delete old file
-					@unlink($this->_path.$files['file_'.$this->input->post('id_file').'']['file_name']);
-					
-					if ($files['file_'.$this->input->post('id_file').'']['file_type']=='img'){
-	
-					//delete old file thumb	
-					$file_x = $files['file_'.$this->input->post('id_file').'']['file_name'];
-				    $info = pathinfo($file_x);
-				    $file_name =  basename($file_x,'.'.$info['extension']);
-								 
-			        $image_thumb = increment_string( $file_name, '_', 'thumb.'.$info['extension']); 
-	
-					@unlink($this->_path.$image_thumb);
-					
-					}
-					
-					
-					
-					if ($this->input->post('file_type')=='img'){
-						
-					$allwed_types=$this->config->item('files_allowed_file_img');
-					
-					}
-					if ($this->input->post('file_type')=='swf'){
-						
-						$allwed_types=$this->config->item('files_allowed_file_swf');
-						
-				     }
-					 if ($this->input->post('file_type')=='video'){
-							 
-						$allwed_types=$this->config->item('files_allowed_file_video');
-					}
-					
-					
-					// Setup upload config
-				$this->upload->initialize(array(
-					'upload_path'	=> $this->_path,
-					'allowed_types'	=> $allwed_types,
-					'file_name'		=>trim(url_title($_FILES['file']['name'], 'dash', TRUE), '-')
-				));
 				
-				
-				
-				if ( ! $this->upload->do_upload('file'))
-					{	
+				// Upload File
+				if ( !$this->piecemaker_m->upload_file('file',$this->input->post('file_type')))
+				{	
 						
-				$status		= 'error';
-				$message	= $this->upload->display_errors();
-
-				if ($this->input->is_ajax_request())
-				{
-					$data = array();
-					$data['messages'][$status] = $message;
-					$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-					return $this->template->build_json(array(
-						'status'	=> $status,
-						'message'	=> $message
-					));
-				}
-
-				$this->data->messages[$status] = $message;
+						$status		= 'error';
+						$message	= $this->upload->display_errors('file');
 					 
-						
-					}else{
+						$this->session->set_flashdata($status, $message);
+				}else{
 						
 						
 						$result_data = $this->upload->data();
 						// pass the attachment info to the email event
 						$data['file']= $result_data['file_name'];
 						
-						// File Image
-						if ($this->input->post('file_type')=='img'){
-					
-					
-						// create thumbnail
-						if ( ! $this->piecemaker_m->create_thumb($this->_path.$data['file'])){
-							$this->session->set_flashdata('error', lang('piecemaker.create_thumb_file_error'));
-						}
 						
-				
-						}
-						// File Video OR SWF
-						else{
-				
 						
-						if ( ! empty($_FILES['file_background']['name'])){
-					
+						
 						//delete old file
-						@unlink($this->_path.$files['file_'.$this->input->post('id_file').'']['background']);
-						//delete old file thumb	
-						$file_x = $files['file_'.$this->input->post('id_file').'']['background'];
-				   		 $info = pathinfo($file_x);
-				    	$file_name =  basename($file_x,'.'.$info['extension']);
-								 
-			        	$image_thumb = increment_string( $file_name, '_', 'thumb.'.$info['extension']); 
-	
-						@unlink($this->_path.$image_thumb);
+						@unlink($this->_path.$files['file_'.$this->input->post('id_file').'']['file_name']);
 					
-							// Setup upload config
-							$this->upload->initialize(array(
-								'upload_path'	=> $this->_path,
-								'allowed_types'	=> $this->config->item('files_allowed_file_img'),
-								'file_name'		=>trim(url_title($_FILES['file_background']['name'], 'dash', TRUE), '-')
-		     				));
-				
-							if ( ! $this->upload->do_upload('file_background'))
+						if ($files['file_'.$this->input->post('id_file').'']['file_type']=='img'){
+	
+							//delete old file thumb	
+							$file_x = $files['file_'.$this->input->post('id_file').'']['file_name'];
+				   			$info = pathinfo($file_x);
+				    		$file_name =  basename($file_x,'.'.$info['extension']);
+								 
+			       			$image_thumb = increment_string( $file_name, '_', 'thumb.'.$info['extension']); 
+	
+							@unlink($this->_path.$image_thumb);
+			
+						}
+						
+						
+				}// end if upload ok
+			} // end if new file
+			
+			
+			// If new Background image
+			if ( ! empty($_FILES['file_background']['name'])){
+					
+							// Upload File
+							if ( !$this->piecemaker_m->upload_file('file_background','img'))
 							{
 								
 								$status		= 'error';
 								$message	= $this->upload->display_errors();
 
-								if ($this->input->is_ajax_request())
-								{
-									$data = array();
-									$data['messages'][$status] = $message;
-									$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-									return $this->template->build_json(array(
-											'status'	=> $status,
-											'message'	=> $message
-									));
-								}
-
-								$this->data->messages[$status] = $message;
-								
-								
-								
-								
-								
-					
+								$this->session->set_flashdata($status, $message);
+	
 							}else{
-						
+	
 								$result_data = $this->upload->data();
 						
 	
 								$data['file_background']= $result_data['file_name'];
+								
+								
+								
+								//delete old file
+								@unlink($this->_path.$files['file_'.$this->input->post('id_file').'']['background']);
+								//delete old file thumb	
+								$file_x = $files['file_'.$this->input->post('id_file').'']['background'];
+				   		 		$info = pathinfo($file_x);
+				    			$file_name =  basename($file_x,'.'.$info['extension']);
+								 
+			        			$image_thumb = increment_string( $file_name, '_', 'thumb.'.$info['extension']); 
+	
+								@unlink($this->_path.$image_thumb);
 							
 						
-								// create thumbnail
-								if ( ! $this->piecemaker_m->create_thumb($this->_path.$data['file_background'])){
-									$this->session->set_flashdata('error', lang('piecemaker.create_thumb_back_error'));
-								}
-
 							}
-				
-				 		 }	
-					}
-				
-				
-				
-				
-				
-				
-						
-				}// end if upload ok
-			} // end if file existe
-				
+					}	
 				
 				// set new file data
 		 		$files['file_'.$this->input->post('id_file').'']=array(
@@ -530,10 +340,10 @@ if ( ! empty($_FILES['file']['name'])){
 				
 		
 		
-					if ($this->files_m->update_file($files,$this->input->post('id_piecemaker')))
+					if ($this->piecemaker_m->update_files($files,$this->input->post('id_piecemaker')))
 					{
 						// Everything went ok..
-						$this->session->set_flashdata('success', lang('piecemaker.add_file_success'));
+						$this->session->set_flashdata('success', lang('piecemaker.update_file_success'));
 
 						// Redirect back to the form or main page
 						$this->input->post('btnAction') == 'save_exit'
@@ -544,13 +354,9 @@ if ( ! empty($_FILES['file']['name'])){
 					// Something went wrong on db insert..
 					else
 					{
-						$this->session->set_flashdata('error', lang('piecemaker.add_file_error'));
+						$this->session->set_flashdata('error', lang('piecemaker.update_file_error'));
 						redirect('piecemaker/admin_files/edit_file/'.$this->input->post('id_piecemaker').'/'.$this->input->post('id_file'));
 					}
-					
-					
-					
-					
 					
 	
 		}
@@ -560,10 +366,7 @@ if ( ! empty($_FILES['file']['name'])){
 		{
 			$file["{$rule['field']}"] = $this->input->post($rule['field']);
 		}
-		
 	
-		
-	   
 		$this->data->id_piecemaker = $id_piecemaker;
 		
 		$return = $this->piecemaker_m->get_piecemaker($id_piecemaker);
@@ -587,20 +390,12 @@ if ( ! empty($_FILES['file']['name'])){
 		$this->template
 			->title($this->module_details['name'], lang('piecemaker.new_file_label'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata(js('admin/piecemaker.js', 'piecemaker'))
-			->append_metadata(css('admin-piecemaker.css', 'piecemaker'))
+			->append_js('module::admin/files.js')
+			->append_css('module::admin-piecemaker.css')
 			->set('file',$file)
 			->set('settings',$settings)
 			->build('admin/files/form',$this->data);
 			
-		
-			
-		
-		
-		
-	
-
-	
 	}
 	
 	
@@ -652,9 +447,6 @@ public function files_action()
 		  // Go through the array of ids to delete
 		  foreach ($ids as $id)
 		  {	
-		  
-		  
-		  	
 				@unlink($this->_path.$files_old['file_'.$id.'']['file_name']);
 				@unlink($this->_path.$files_old['file_'.$id.'']['background']);
 				
@@ -680,16 +472,10 @@ public function files_action()
 					@unlink($this->_path.$image_thumb);
 				}
 				
-				
-			
-				
-								
 				 unset($files_old['file_'.$id.'']);
-
-				
+		
 				$files_delete[] = $id;
-		  
-		  
+				
 			
 		  }	//END FOR
 		  
@@ -713,13 +499,13 @@ public function files_action()
 			if ($this->piecemaker_m->update_files($new_files, $id_piecemaker))
 			{
 			
-			(count($imagens) == 1)? $this->session->set_flashdata('success', sprintf(lang('piecemaker.delete_single_success'), $files_delete[0]))				/* Only deleting one comment */
-				: $this->session->set_flashdata('success', sprintf(lang('piecemaker.delete_multi_success'), implode(', #', $files_delete )));	/* Deleting multiple comments */
+			(count($imagens) == 1)? $this->session->set_flashdata('success', sprintf(lang('piecemaker.delete_file_success'), $files_delete[0]))				/* Only deleting one file */
+				: $this->session->set_flashdata('success', sprintf(lang('piecemaker.delete_multi_file_success'), implode(', #', $files_delete )));	/* Deleting multiple files */
 			}
 			// For some reason, none of them were deleted
 			else
 			{
-			$this->session->set_flashdata('error', lang('piecemaker.delete_error'));
+			$this->session->set_flashdata('error', lang('piecemaker.delete_file_error'));
 			}
 		
 		}
@@ -727,7 +513,7 @@ public function files_action()
 		// For some reason, none of them were deleted
 		else
 		{
-			$this->session->set_flashdata('error', lang('piecemaker.delete_error'));
+			$this->session->set_flashdata('error', lang('piecemaker.delete_file_error'));
 		}
 		
 		

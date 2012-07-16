@@ -1,27 +1,24 @@
 <script type="text/javascript">
 
+    var instance_old = CKEDITOR.instances[$('textarea.wysiwyg-advanced').attr('id')];
+			    instance_old && instance_old.destroy();
+				
 	var instance;
 
 	function update_instance()
 	{
 		instance = CKEDITOR.currentInstance;
 	}
+	
+	         
 
 	(function($) {
 		$(function(){
 
+
+				
 			pyro.init_ckeditor = function(){
-				$('textarea.wysiwyg-simple').ckeditor({
-					toolbar: [
-												['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
-					  ],
-										width: '99%',
-					height: 100,
-					dialog_backgroundCoverColor: '#000',
-					defaultLanguage: 'en',
-					language: 'pt'
-				});
-	
+				
 				$('textarea.wysiwyg-advanced').ckeditor({
 					toolbar: [
 						['Maximize'],

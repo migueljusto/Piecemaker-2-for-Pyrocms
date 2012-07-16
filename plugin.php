@@ -2,11 +2,10 @@
 /**
  * Galleries Plugin
  *
- * Create a list of images
+ * Create a list of images and show slider
  *
  * @package		PyroCMS
- * @author		Jerel Unruh - PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2010, PyroCMS
+ * @author		Miguel Justo - http:// migueljusto.net
  *
  */
 class Plugin_Piecemaker extends Plugin
@@ -36,14 +35,47 @@ class Plugin_Piecemaker extends Plugin
 	 */ 
 	function slider()
 	{
+		$this->config->load('config');	
+		$this->load->model('piecemaker_m');
 		
 		
-		$data['id_object']= $this->attribute('id');
+		
+		if  ($this->attribute('slug')!=''){
+			$data['id']=$this->attribute('slug');
+		} else {
+			$data['id']  = $this->attribute('id');
+		}
 		
 		
 		
-		return $this->module_view('piecemaker', 'piecemaker_view', $data, TRUE);
+		$return = $this->piecemaker_m->get_piecemaker($data['id']);
 		
+		If ($return) {
+		$settings = $return->settings;
+		
+		/* Add 10% to the user image width and height */
+		$default_width = $return->settings['image_width'] + 100;
+		$default_height = $return->settings['image_height'] + 100;
+		
+		$data['width']= @$this->attribute('width') == '' ?  $default_width : $this->attribute('width');
+		$data['height']=@$this->attribute('height') == '' ? $default_height : $this->attribute('height'); 
+		
+		
+		 	
+			// add path to module assets
+			Asset::add_path('piecemaker', ''.$this->config->item('addon_path').'modules/piecemaker/');
+	
+			$this->template->append_js(array(
+				'piecemaker::swfobject/swfobject.js',
+			));
+		
+		
+		$data['piecemaker_css_path']=base_url().$this->config->item('addon_path').'modules/piecemaker/css/piecemaker.css';
+		$data['piecemaker_swf_path']=base_url().$this->config->item('addon_path').'modules/piecemaker/js/piecemaker.swf';
+		
+		
+		return $this->module_view('piecemaker', 'piecemaker_view', $data);
+		}
 		
 		
 	}
