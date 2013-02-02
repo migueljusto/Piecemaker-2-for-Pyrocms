@@ -64,7 +64,7 @@ class Admin_files extends Admin_Controller
 	{
 		parent::__construct();
 
-		$this->config->load('config');	
+		$this->config->load('piecemaker/config');	
 		// Load all the required classes
 
 		$this->load->model('piecemaker_m');

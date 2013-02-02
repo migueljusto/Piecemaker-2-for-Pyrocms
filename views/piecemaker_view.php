@@ -1,13 +1,12 @@
-
-
 <?php 
+Asset::js('piecemaker::swfobject/swfobject.js');       
+echo Asset::render_js();
 
-        
 
 echo '
 <script type="text/javascript">
   var flashvars = {};
-  flashvars.cssSource = "'.$piecemaker_css_path.'"
+  flashvars.cssSource = "{{ asset:css_url file="piecemaker::piecemaker.css" }}"
   flashvars.xmlSource = "'.site_url().'piecemaker/get_images/'.$id.'";
 	
   var params = {};
@@ -19,7 +18,7 @@ echo '
   params.allowscriptaccess = "always";
   params.allownetworking = "all";
   
-  swfobject.embedSWF("'.$piecemaker_swf_path.'", "piecemaker_'.$id.'", "'.$width.'", "'.$height.'", "10", null, flashvars, params, null);
+  swfobject.embedSWF("{{ asset:js_url file="piecemaker::piecemaker.swf" }}", "piecemaker_'.$id.'", "'.$width.'", "'.$height.'", "10", null, flashvars, params, null);
 
 </script> ';
 

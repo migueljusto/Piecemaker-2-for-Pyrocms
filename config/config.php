@@ -1,10 +1,5 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-//Addon Path
-
-// MODIFY THIS PATH IF YOU'D LIKE TO KEEP THE MODULE ELSEWHERE
-$config['addon_path'] = SHARED_ADDONPATH; // ADDONPATH
-
 //Upload Folder
 $config['files_folder'] = UPLOAD_PATH . 'piecemaker/';
 

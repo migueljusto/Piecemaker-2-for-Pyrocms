@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
 /**
  *
  * The Piecemaker Manager module enables users to create piecemakers, upload files and manage their existing files, transitions and settings.
@@ -10,8 +9,20 @@
  * @category 	Modules
  * @license 	Apache License v2.0
  */
+ 
 class Piecemaker_m extends MY_Model {
 
+	public function __construct()
+	{
+		
+		
+		parent::__construct();
+	
+	
+		$this->config->load('piecemaker/config');	 
+
+	}
+	
 	/* Get all Piecemkaer */	
 	public function get_piecemakers()
 	{
@@ -35,12 +46,14 @@ class Piecemaker_m extends MY_Model {
 		
 		$result = $query->row();
 		
+		if($result):
 		$result->files = unserialize($result->files);
 		
 		$result->settings = unserialize($result->settings);
 		
 		$result->transitions = unserialize($result->transitions);
     	
+		endif;
     	return $result;
   	}
 	
@@ -209,7 +222,7 @@ class Piecemaker_m extends MY_Model {
     public function delete_piecemaker($id)
 	{
 		
-	$this->config->load('config');		
+		
 	$this->_path =  FCPATH .$this->config->item('files_folder');	
 	
 	$return = $this->get_piecemaker($id);	
@@ -377,7 +390,6 @@ class Piecemaker_m extends MY_Model {
 	public function upload_file($input_field = 'userfile', $file_type)
 	{
 		
-	 $this->config->load('config');
 	 
 	 $this->_path = $this->config->item('files_folder');
 	 
